@@ -4,6 +4,16 @@ import datetime
 from unicodedata import name
 from PIL import Image, ImageTk
 
+class Person:
+    def __init__(self, name, birthdate):
+        self.name = name
+        self.birthdate = birthdate
+    def age(self):
+        today = datetime.date.today()
+        age = today.year - self.birthdate.year
+        return age
+
+
 def getInput():
     name = nameEntry.get()
     year = yearEntry.get()
@@ -17,7 +27,7 @@ def getInput():
     textArea.insert(tk.END, answer)
 
 window = tk.Tk()
-window.geometry("620x780")
+window.geometry("400x500")
 window.title("age calculator app")
 
 
@@ -37,5 +47,14 @@ date = tk.Label(window, text="Date")
 date.grid(column=0, row=4)
 dateEntry = tk.Entry()
 dateEntry.grid(column=1, row=4)
+
+button = tk.Button(window, text="Calculate Age", command=getInput, bg="pink")
+button.grid(column=1, row=5)
+
+image = Image.open("profile_picture.jpg")
+image.thumbnail((300, 300), Image.ANTIALIAS)
+photo = ImageTk.PhotoImage(image)
+label_image = tk.Label(image=photo)
+label_image.grid(column=1, row=0)
 
 window.mainloop()
